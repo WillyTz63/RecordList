@@ -31,7 +31,7 @@ jobs:
 
     - name: Authenticate to Salesforce
       run: |
-          echo ${{ secrets.SFDC_KEY }}  > server.key
+          echo "${{ secrets.SFDC_KEY }}" > server.key
     
     - name: Deploy
       run: | 
