@@ -30,12 +30,9 @@ jobs:
       run: echo "ASDA" > server1.key
 
     - name: Authenticate to Salesforce
-      env:
-        SFDX_JWT_KEY: ${{ secrets.SFDC_KEY }}
       run: |
           echo ${{ secrets.SFDC_KEY }}  > server.key
-         
-
+    
     - name: Deploy
       run: | 
           echo "hola"
