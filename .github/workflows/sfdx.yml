@@ -43,4 +43,4 @@ jobs:
 
     - name: Deploy to Salesforce
       if: github.event_name == 'push'
-      run: node_modules/sfdx-cli/bin/run force:source:deploy -p force-app -u $SALESFORCE_USERNAME
+      run: node_modules/sfdx-cli/bin/run force:source:deploy -p force-app -u devhub
