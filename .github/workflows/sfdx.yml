@@ -1,0 +1,36 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      SALESFORCE_USERNAME: ${{ secrets.PLAYGROUND_USERNAME }}
+      SALESFORCE_PASSWORD: ${{ secrets.PLAYGROUND_PASSWORD }}
+      SALESFORCE_INSTANCE_URL: "https://playful-squirrel-1234-dev-ed.my.salesforce.com"
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v2
+
+    - name: Install Salesforce CLI
+      uses: sfdx-actions/setup-salesforce-cli@v1
+
+    - name: Authenticate to Salesforce
+      run: sfdx force:auth:jwt:grant --clientid ${{ secrets.CONSUMER_KEY }} --jwtkeyfile ./server.key --username $SALESFORCE_USERNAME --setdefaultdevhubusername -a DevHub
+
+    - name: Install dependencies
+      run: sfdx force:source:install -r -x ./manifest/package.xml
+
+    - name: Run tests
+      run: sfdx force:apex:test:run
+
+    - name: Deploy to Salesforce
+      if: github.event_name == 'push'
+      run: sfdx force:source:deploy -p force-app
