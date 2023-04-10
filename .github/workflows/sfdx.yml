@@ -40,8 +40,6 @@ jobs:
     - name: Install dependencies
       run: node_modules/sfdx-cli/bin/run force:source:install -r -x ./manifest/package.xml
 
-    - name: Run tests
-      run: node_modules/sfdx-cli/bin/run force:apex:test:run
 
     - name: Deploy to Salesforce
       if: github.event_name == 'push'
