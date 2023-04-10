@@ -19,6 +19,9 @@ jobs:
     - name: Checkout the code
       uses: actions/checkout@v2
 
+    - name: Server key PRE
+      run: echo $GITHUB_CONTEXT 
+
     - name: Install Salesforce CLI
       run: |
         npm install sfdx-cli
