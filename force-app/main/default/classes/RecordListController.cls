@@ -5,12 +5,11 @@
  * @last modified on  : 09-04-2023
  * @last modified by  : Willy Chung
 **/
-public with sharing class RecordListController {
-    public RecordListController() {
-    }
+public without sharing class RecordListController {
 
-    @AuraEnabled
-    public static List<Account> getRecords(){
-        return [SELECT Id FROM Account];
+    @AuraEnabled(cacheable=true)
+    public static List<Account> getRecordList(){
+        
+        return [SELECT Id,name FROM Account];
     }
 }

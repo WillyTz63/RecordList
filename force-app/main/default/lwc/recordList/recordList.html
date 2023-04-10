@@ -1,7 +1,11 @@
 <template>
     <lightning-card title="My Todo List">
         <template for:each={recordList} for:item ="rec">
-
+            <lightning-layout key={rec.id}>
+                <lightning-layout-item>
+                    <lightning-input type="checkbox" label={rec.Name} checked="true"  data-todo-id={rec.id}></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
         </template>
     </lightning-card>
 </template>
