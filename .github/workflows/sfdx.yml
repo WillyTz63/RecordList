@@ -33,6 +33,8 @@ jobs:
       env:
         SFDX_JWT_KEY: ${{ secrets.SFDC_KEY }}
       run: echo "${SFDX_JWT_KEY}" > server.key
+          echo "hola"
           node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.CONSUMER_KEY }} --jwtkeyfile server.key --username $SALESFORCE_USERNAME --setdefaultdevhubusername --setalias devhub
           node_modules/sfdx-cli/bin/run force:org:display --json -u $SALESFORCE_USERNAME > sfdx-auth.json
+          node_modules/sfdx-cli/bin/run force:org:display --json -u $SALESFORCE_USERNAME
           node_modules/sfdx-cli/bin/run force:source:deploy -x ./manifest/package.xml -l RunLocalTests -u devhub -c
