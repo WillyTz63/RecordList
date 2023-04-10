@@ -13,14 +13,18 @@ jobs:
     env:
       SALESFORCE_USERNAME: ${{ secrets.PLAYGROUND_USERNAME }}
       SALESFORCE_PASSWORD: ${{ secrets.PLAYGROUND_PASSWORD }}
-      SALESFORCE_INSTANCE_URL: "https://playful-squirrel-1234-dev-ed.my.salesforce.com"
+      SALESFORCE_INSTANCE_URL: "https://wise-impala-axjif7-dev-ed.trailblaze.my.salesforce.com/"
 
     steps:
     - name: Checkout the code
       uses: actions/checkout@v2
 
     - name: Install Salesforce CLI
-      uses: sfdx-actions/setup-salesforce-cli@v1
+      run: |
+      wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+      mkdir sfdx-cli
+      tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
+      ./sfdx-cli/install
 
     - name: Authenticate to Salesforce
       run: sfdx force:auth:jwt:grant --clientid ${{ secrets.CONSUMER_KEY }} --jwtkeyfile ./server.key --username $SALESFORCE_USERNAME --setdefaultdevhubusername -a DevHub
